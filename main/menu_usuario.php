@@ -5,7 +5,7 @@ include "head_usuario.php";
 session_start();
 $num_linhas = 0;
 $exesql_retirados  = '';
-if($_SESSION['status'] != "" ){
+if(isset($_SESSION['status']) and $_SESSION['status']!= "" ){
     $user = $_SESSION['status'];
 
     $con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
@@ -30,19 +30,13 @@ if($_SESSION['status'] != "" ){
             order by e.data_retirada desc";
 
     $exesql_retirados = mysqli_query($con, $sql_retirados);
+    mysqli_close($con);
     $num_linhas = mysqli_num_rows($exesql_retirados);
 
 }
 else{
     header("location: login.php");
 }
-
-if(isset($_POST["btn_logout"])){
-    unset($_SESSION['status']);
-    header("location: login.php");
-}
-
-
 ?>
 
 <html lang="pt-br">

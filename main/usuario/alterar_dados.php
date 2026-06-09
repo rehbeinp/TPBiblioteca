@@ -67,7 +67,7 @@ if(isset($_SESSION['status']) and $_SESSION['status']!= "" ){
     $resul = busca_dados($user);
 }
 else{
-    header("location: login.php");
+    header("location: ../login.php");
 }
 
 if(isset($_POST['btn_nome'])){

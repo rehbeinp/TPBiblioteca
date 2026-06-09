@@ -16,7 +16,7 @@ function calcula_multa($usuario){
     where e.data_devolucao is null
         and u.email = '$usuario'
         and date(e.data_devolucao_prevista) < date(now())
-        and date(m.ultima_atulizacao) < date(now())";
+        and date(m.ultima_atualizacao) < date(now())";
 
     $exesql = mysqli_query($con, $sql);
     mysqli_close($con);

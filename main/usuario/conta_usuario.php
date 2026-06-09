@@ -27,7 +27,7 @@ if(isset($_SESSION['status']) and $_SESSION['status']!= "" ){
 
 }
 else{
-    header("location: login.php");
+    header("location: ../login.php");
 }
 
 if(isset($_POST['btn_alterar'])){

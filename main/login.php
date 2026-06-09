@@ -21,7 +21,7 @@
 
 <?php
 session_start();
-require_once "calcula_multa.php";
+require_once "usuario/calcula_multa.php";
 
 if (isset($_POST["btn_login"])) {
     $USER = $_POST["usuario"];
@@ -54,7 +54,7 @@ if (isset($_POST["btn_login"])) {
         if ($tipoUsuario == "admin") {
             header("location: menu_adim.php");
         } else {
-            header("location: menu_usuario.php");
+            header("location: usuario/menu_usuario.php");
         }
 
     } else {

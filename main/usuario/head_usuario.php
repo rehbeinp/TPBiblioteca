@@ -21,7 +21,7 @@
 
 if(isset($_POST["btn_logout"])){
     unset($_SESSION['status']);
-    header("location: login.php");
+    header("location: ../login.php");
 }
 
 if(isset($_POST["btn_listar_historico"])){

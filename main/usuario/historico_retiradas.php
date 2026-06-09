@@ -37,7 +37,7 @@ if(isset($_SESSION['status']) and $_SESSION['status']!= "" ){
 
 }
 else{
-    header("location: login.php");
+    header("location: ../login.php");
 }
 ?>
 

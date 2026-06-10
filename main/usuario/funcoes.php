@@ -59,4 +59,32 @@ function atualiza_multa($multas){
         mysqli_close($con);
     }
 }
+
+function pesquisa($tabela, $coluna, $valor){
+    $tabela_filtrada = [];
+
+    foreach($tabela as $linha){
+        if(str_contains(
+            strtolower(trim($linha[$coluna])),
+            strtolower(trim($valor))
+        )){
+            $tabela_filtrada[] = $linha;
+        }
+    }
+    return $tabela_filtrada;
+}
+
+function ordenaCrescente($tabela, string $coluna){
+    usort($tabela, function($a, $b) use ($coluna) {
+        return $a[$coluna] <=> $b[$coluna];
+    });
+    return $tabela;
+}
+
+function ordenaDecrescente($tabela, string $coluna){
+    usort($tabela, function($a, $b) use ($coluna) {
+        return $b[$coluna] <=> $a[$coluna];
+    });
+    return $tabela;
+}
 ?>

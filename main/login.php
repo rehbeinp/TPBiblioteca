@@ -21,7 +21,7 @@
 
 <?php
 session_start();
-require_once "usuario/calcula_multa.php";
+require_once "usuario/funcoes.php";
 
 if (isset($_POST["btn_login"])) {
     $USER = $_POST["usuario"];

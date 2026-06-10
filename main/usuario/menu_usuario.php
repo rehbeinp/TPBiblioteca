@@ -52,20 +52,24 @@ else{
            if ($num_linhas >= 1) {
             echo "<h3>Livros com você no momento:</h3>";
             while ($resul = mysqli_fetch_assoc($exesql_retirados)) {
-
+                echo "___________________________________________________________ <br> <br>";
                 echo "<strong>Título: </strong>" . $resul['titulo']. " <br>";
                 echo "<strong>Autor(a): </strong>" . $resul['autor']. " <br>";
                 echo "<strong>Classificação: </strong>" . $resul['classificacao']. " <br>";
                 echo "<strong>Data da Retirada: </strong>" . $resul['data_retirada']. " <br>";
                 echo "<strong>Data da Devolução Prevista: </strong>" . $resul['data_devolucao_prevista']. " <br>";
+                if( $resul['data_devolucao'] != null){
+                    echo "<strong>Data da Devolução: </strong>" . $resul['data_devolucao']. " <br>";
+                }
                 if( $resul['valor_multa'] == null){
-                    echo "<strong> Multa: </strong> Sem multa. :) <br><br>";
+                    echo "<strong>Multa: </strong> Sem multa. :) <br><br>";
                 }
                 else{
+                    echo" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - <br>";
+                    if($resul['multa_paga'] == 1) {echo "<strong> Multa quitada :) </strong> <br>";}
+                    else{ echo "<strong> Multa em haver :( </strong> <br> Venha pagar para não aumentar ;) <br>";}
                     echo "<strong>Valor multa: </strong> R$" . $resul['valor_multa']. " <br>";
-                    echo "<strong>Motivo dsa Multa: </strong>" . $resul['motivo_multa']. " <br>";
-                    if($resul['paga'] == 0) echo "<strong> Multa quitada :) </strong> <br><br>";
-                    else echo "<strong> Multa em haver :( </strong>  <p style='opacity: 0.5;'>Venha pagar para não aumentar ;)</p><br><br> ";
+                    echo "<strong>Motivo da Multa: </strong>" . $resul['motivo_multa']. "  <br><br> ";
                 }
             }
         

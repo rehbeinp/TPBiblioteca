@@ -87,4 +87,33 @@ function ordenaDecrescente($tabela, string $coluna){
     });
     return $tabela;
 }
+
+function mensagem_pesquisa($objeto,$pesquisa, $num_linhas){
+    if($num_linhas < 1){
+        $mensagem = "<strong> Não escontramos nenhum Livro com esse(a) $objeto.</strong> Vamos tentar outro(a) $objeto?";
+    }
+    else {
+        $mensagem = "Todos os resultados da pesquisa de '$pesquisa' em $objeto. <br><br>";
+    }
+    
+    return $mensagem;
+}
+
+function atualizar_dado($sql){
+    $con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
+    if (mysqli_connect_errno()) {
+        echo "Falhou devido a conexao com Mysql:" . mysqli_connect_error();
+    }
+
+    mysqli_query($con, $sql);
+    $linhas = mysqli_affected_rows($con);
+    mysqli_close($con);
+    
+    if($linhas > 0){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 ?>

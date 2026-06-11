@@ -48,8 +48,12 @@ if ($num_linhas > 0) {
 
     $pdf->AddPage();
 
+    $data = date('d-m-Y');
+
+    $titulo = "Relatório de Multas $data";
+
     $pdf->SetFont('Arial', 'B', 14);
-    $pdf->Cell(0, 10, utf8_decode('Relatório de Multas'), 0, 1, 'C');
+    $pdf->Cell(0, 10, utf8_decode($titulo), 0, 1, 'C');
 
     $pdf->Ln(3);
 
@@ -94,7 +98,6 @@ if ($num_linhas > 0) {
 
     mysqli_close($con);
 
-    $data = date('d-m-Y');
     $nome_arquivo = "multas_$data.pdf";
 
     $pdf->Output('D', $nome_arquivo);

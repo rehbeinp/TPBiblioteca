@@ -1,6 +1,5 @@
 <?php
 include "head_usuario.php";
-
 session_start();
 $num_linhas = 0;
 $exesql_retirados  = '';
@@ -37,6 +36,7 @@ if(isset($_SESSION['status']) and $_SESSION['status']!= "" ){
 else{
     header("location: ../login.php");
 }
+
 ?>
 
 <html lang="pt-br">
@@ -44,9 +44,13 @@ else{
 	<meta charset="utf-8">
 </head>
 <body>
+    <p></p>
+        <form action="gerar_pdf_multas.php" method="post">
+            <button type='submit'>Gerar relatório de multas</button>
+        </form>
+    </p>
     <br>
     <h2>Histórico de Multas Registradas</h2> 
-    <form  method='POST'>
         <div>
            <?php 
            if ($num_linhas >= 1) {
@@ -74,7 +78,5 @@ else{
                 echo "<h3>[|]  :)> Retire um livro!! :)>  [|]  </h3>";
                 ?>
         </div>
-	</form>
-
 </body>
 </html>

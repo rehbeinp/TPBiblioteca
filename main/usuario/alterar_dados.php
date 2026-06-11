@@ -1,5 +1,7 @@
 <?php
 include "head_usuario.php";
+require_once "funcoes.php";
+
 $btn_nome = "Alterar nome";
 $btn_nascimento = "Alterar data";
 $btn_endereco = "Alterar endereço";
@@ -44,23 +46,6 @@ function busca_dados($u){
 
 }
 
-function atualizar_dado($sql){
-    $con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
-    if (mysqli_connect_errno()) {
-        echo "Falhou devido a conexao com Mysql:" . mysqli_connect_error();
-    }
-
-    mysqli_query($con, $sql);
-    $linhas = mysqli_affected_rows($con);
-    mysqli_close($con);
-    
-    if($linhas > 0){
-        return true;
-    }
-    else {
-        return false;
-    }
-}
 
 if(isset($_SESSION['status']) and $_SESSION['status']!= "" ){
     $user = $_SESSION['status'];

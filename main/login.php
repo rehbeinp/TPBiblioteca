@@ -43,6 +43,7 @@ if (isset($_POST["btn_login"])) {
     $num_linhas = mysqli_num_rows($exesql);
 
     if ($num_linhas == 1) {
+
         $_SESSION['status'] = $USER;
 
         echo "Usuario logado com sucesso";
@@ -50,8 +51,10 @@ if (isset($_POST["btn_login"])) {
         $multa_atualizada = calcula_multa($USER);
         atualiza_multa($multa_atualizada);
         
-
-        if ($tipoUsuario == "admin") {
+        if($SENHA == hash('sha256',"1234")){
+            header("location: usuario/primeiro_login.php");
+        }
+        elseif ($tipoUsuario == "admin") {
             header("location: menu_adim.php");
         } else {
             header("location: usuario/menu_usuario.php");

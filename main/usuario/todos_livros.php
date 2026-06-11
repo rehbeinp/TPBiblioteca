@@ -60,17 +60,6 @@ else{
     header("location: ../login.php");
 }
 
-function mensagem($objeto,$pesquisa, $num_linhas){
-    if($num_linhas < 1){
-        $mensagem = "<strong> Não escontramos nenhum Livro com esse(a) $objeto.</strong> Vamos tentar outro(a) $objeto?";
-    }
-    else {
-        $mensagem = "Todos os resultados da pesquisa de '$pesquisa' em $objeto. <br><br>";
-    }
-    
-    return $mensagem;
-}
-
 if(isset($_POST["btn_pesquisa"])){
     $objetoPesquisa = $_POST["objetoPesquisa"];
     $valorPesquisa = $_POST["valorPesquisa"];
@@ -82,7 +71,7 @@ if(isset($_POST["btn_pesquisa"])){
     elseif($valorPesquisa != ""){
         $mostra = pesquisa($todo_acervo,$objetoPesquisa, $valorPesquisa);
         $num_linhas = count($mostra);
-        $mensagem = mensagem($objetoPesquisa, $valorPesquisa, $num_linhas);
+        $mensagem = mensagem_pesquisa($objetoPesquisa, $valorPesquisa, $num_linhas);
     }
     else{
         $mensagem = "<p> <strong> Ops.. Parece que você esqueceu de preencher o texto da pesquisa. </strong> Adicione um texto para melhores resultados. :) </p>";

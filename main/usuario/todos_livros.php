@@ -1,6 +1,4 @@
 <?php
-// Inclui arquivo que gera a conexão
-include "../conexao.php";
 
 // Inclui o cabeçalho da área do usuário (layout, menu, etc.)
 include "head_usuario.php";

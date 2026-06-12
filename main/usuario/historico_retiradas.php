@@ -1,11 +1,8 @@
 <?php
-// Inclui arquivo que gera a conexão
-include "../conexao.php";
-
 // Inclui o cabeçalho padrão do usuário (menu, layout, etc.)
 include "head_usuario.php";
 
-// Importa funções auxiliares (pesquisa, ordenação, mensagens)
+// Importa funções auxiliares (pesquisa, ordenação, mensagens e a conexão)
 include "funcoes.php";
 
 // Inicia ou recupera a sessão

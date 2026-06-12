@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-olá paula testee
-=======
-trabalho prático 123
->>>>>>> 074452c7fe4fc6ecb3c11bcb8e2d921430930db3

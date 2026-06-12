@@ -1,6 +1,6 @@
 <?php
 function calcula_multa(){
-    $con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
+    $con = mysqli_connect("localhost", "root", "2004", "biblioteca", "3307");
 
     if (mysqli_connect_errno()) {
         echo "Falhou devido a conexao com Mysql:" . mysqli_connect_error();

@@ -28,7 +28,7 @@ if (isset($_POST["btn_login"])) {
     $SENHA = hash('sha256', (string)$_POST["senha"]);
     $tipoUsuario = $_POST["tipoUsusario"];
 
-    $con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
+    $con = mysqli_connect("127.0.0.1:3307", "root", "2004", "biblioteca", "3307");
 
     if (mysqli_connect_errno()) {
         echo "Falhou devido a conexao com Mysql:" . mysqli_connect_error();
@@ -52,7 +52,7 @@ if (isset($_POST["btn_login"])) {
         
 
         if ($tipoUsuario == "admin") {
-            header("location: menu_adim.php");
+            header("location: adimin/menu_admin.php");
         } else {
             header("location: usuario/menu_usuario.php");
         }

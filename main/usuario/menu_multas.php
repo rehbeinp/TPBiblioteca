@@ -1,17 +1,30 @@
 <?php
+
+// Inclui o cabeçalho padrão do usuário (layout/menu)
 include "head_usuario.php";
 
+// Inicia ou recupera a sessão atual
 session_start();
+
+// Variáveis de controle
 $num_linhas = 0;
 $exesql_retirados  = '';
+
+// Verifica se o usuário está logado
 if(isset($_SESSION['status']) and $_SESSION['status']!= "" ){
+
+    // Usuário logado (email vindo da sessão)
     $user = $_SESSION['status'];
 
+    // Conexão com o banco de dados
     $con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
+
+    // Verifica erro de conexão
     if (mysqli_connect_errno()) {
         echo "Falhou devido a conexao com Mysql:" . mysqli_connect_error();
     }
 
+    // Consulta histórico de multas do usuário
     $sql_retirados = "SELECT 
                 l.titulo,
                 l.autor,
@@ -29,52 +42,91 @@ if(isset($_SESSION['status']) and $_SESSION['status']!= "" ){
             where u.email='$user'
             order by m.paga asc, e.data_retirada desc, e.data_devolucao_prevista desc";
 
+    // Executa consulta
     $exesql_retirados = mysqli_query($con, $sql_retirados);
+
+    // Fecha conexão
     mysqli_close($con);
+
+    // Conta quantos registros foram encontrados
     $num_linhas = mysqli_num_rows($exesql_retirados);
 
 }
 else{
+
+    // Redireciona para login caso usuário não esteja autenticado
     header("location: ../login.php");
 }
+
 ?>
 
 <html lang="pt-br">
-<head>
-	<meta charset="utf-8">
-</head>
-<body>
-    <br>
-    <h2>Histórico de Multas Registradas</h2> 
-    <form  method='POST'>
+    <head>
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+        <!-- Botão para gerar relatório PDF das multas -->
+        <p></p>
+            <form action="gerar_pdf_multas.php" method="post">
+                <button type='submit'>Gerar relatório de multas</button>
+            </form>
+        </p>
+
+        <br>
+
+        <!-- Título da página -->
+        <h2>Histórico de Multas Registradas</h2>
+
         <div>
-           <?php 
-           if ($num_linhas >= 1) {
+            <?php 
 
-            while ($resul = mysqli_fetch_assoc($exesql_retirados)) {
-                echo "___________________________________________________________ <br> <br>";
-                echo "<strong>Título: </strong>" . $resul['titulo']. " <br>";
-                echo "<strong>Autor(a): </strong>" . $resul['autor']. " <br>";
-                echo "<strong>Classificação: </strong>" . $resul['classificacao']. " <br>";
-                echo "<strong>Data da Retirada: </strong>" . $resul['data_retirada']. " <br>";
-                echo "<strong>Data da Devolução Prevista: </strong>" . $resul['data_devolucao_prevista']. " <br>";
-                if( $resul['data_devolucao'] != null){
-                    echo "<strong>Data da Devolução: </strong>" . $resul['data_devolucao']. " <br>";
+            // Se existirem registros
+            if ($num_linhas >= 1) {
+
+                // Percorre todas as multas do usuário
+                while ($resul = mysqli_fetch_assoc($exesql_retirados)) {
+
+                    echo "___________________________________________________________ <br> <br>";
+
+                    // Informações do livro
+                    echo "<strong>Título: </strong>" . $resul['titulo']. " <br>";
+                    echo "<strong>Autor(a): </strong>" . $resul['autor']. " <br>";
+                    echo "<strong>Classificação: </strong>" . $resul['classificacao']. " <br>";
+
+                    // Informações do empréstimo
+                    echo "<strong>Data da Retirada: </strong>" . $resul['data_retirada']. " <br>";
+                    echo "<strong>Data da Devolução Prevista: </strong>" . $resul['data_devolucao_prevista']. " <br>";
+
+                    // Exibe data de devolução caso exista
+                    if( $resul['data_devolucao'] != null){
+                        echo "<strong>Data da Devolução: </strong>" . $resul['data_devolucao']. " <br>";
+                    }
+
+                    echo " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - <br>";
+
+                    // Status da multa
+                    if($resul['multa_paga'] == 1) {
+                        echo "<strong> Multa quitada :) </strong> <br>";
+                    }
+                    else{
+                        echo "<strong> Multa em haver :( </strong> <br> Venha pagar para não aumentar ;) <br>";
+                    }
+
+                    // Detalhes da multa
+                    echo "<strong>Valor multa: </strong> R$" . $resul['valor_multa']. " <br>";
+                    echo "<strong>Motivo da Multa: </strong>" . $resul['motivo_multa']. " <br><br> ";
                 }
-                echo" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - <br>";
-                if($resul['multa_paga'] == 1) {echo "<strong> Multa quitada :) </strong> <br>";}
-                else{ echo "<strong> Multa em haver :( </strong> <br> Venha pagar para não aumentar ;) <br> ";}
-                echo "<strong>Valor multa: </strong> R$" . $resul['valor_multa']. " <br>";
-                echo "<strong>Motivo da Multa: </strong>" . $resul['motivo_multa']. " <br><br> ";
-                
-            }
-        
 
-            } else
+            } else {
+
+                // Mensagem caso não existam multas registradas
                 echo "<h3>[|]  :)> Retire um livro!! :)>  [|]  </h3>";
-                ?>
-        </div>
-	</form>
+            }
 
-</body>
+            ?>
+        </div>
+
+    </body>
 </html>

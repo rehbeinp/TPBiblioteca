@@ -35,9 +35,6 @@ session_start();
 require_once "usuario/funcoes.php";
 require_once "conexao.php";
 
-global $senha_banco;
-global $porta_banco;
-
 // Verifica se o botão de login foi pressionado
 if (isset($_POST["btn_login"])) {
 
@@ -50,13 +47,8 @@ if (isset($_POST["btn_login"])) {
     // Recebe o tipo de usuário selecionado
     $tipoUsuario = $_POST["tipoUsusario"];
 
-    // Realiza a conexão com o banco de dados
-    $con = mysqli_connect("localhost", "root", $senha_banco, "biblioteca", $porta_banco);
-
-    // Verifica se houve erro na conexão
-    if (mysqli_connect_errno()) {
-        echo "Falhou devido a conexao com Mysql:" . mysqli_connect_error();
-    }
+    // Cria a conexão com o banco de dados pela função
+    $con = cria_conexao();
 
     // Consulta para verificar se existe um usuário com os dados informados
     $sql = "SELECT email from usuarios where email='$USER' 
@@ -80,12 +72,6 @@ if (isset($_POST["btn_login"])) {
         // Exibe mensagem de sucesso
         echo "Usuario logado com sucesso";
         
-        // Calcula a multa atualizada do usuário
-        $multa_atualizada = calcula_multa($USER);
-
-        // Atualiza a multa no banco de dados
-        atualiza_multa($multa_atualizada);
-        
         // Verifica se o usuário ainda está utilizando a senha padrão
         if($SENHA == hash('sha256',"1234")) {
         // Redireciona para a página de alteração de senha
@@ -98,6 +84,14 @@ if (isset($_POST["btn_login"])) {
         } 
         // Caso contrário, redireciona para o menu do usuário comum
         else {
+            
+            // Calcula a multa atualizada do usuário
+            $multa_atualizada = calcula_multa($USER);
+
+            // Atualiza a multa no banco de dados
+            atualiza_multa($multa_atualizada);
+
+            // Direciona pro menu de usuario
             header("location: usuario/menu_usuario.php");
         }
 

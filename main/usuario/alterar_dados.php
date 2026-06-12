@@ -1,4 +1,6 @@
 <?php
+// Inclui arquivo que gera a conexão
+require_once "../conexao.php";
 
 // Inclui cabeçalho padrão do sistema (layout/menu do usuário)
 include "head_usuario.php";
@@ -39,13 +41,8 @@ function busca_dados($u){
 
     $user = $u;
 
-    // Conexão com banco
-    $con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
-
-    // Verifica erro de conexão
-    if (mysqli_connect_errno()) {
-        echo "Falhou devido a conexao com Mysql:" . mysqli_connect_error();
-    }
+    // Conexão com banco pela função
+    $con = cria_conexao();
 
     // Consulta dados do usuário
     $sql_user = "SELECT 

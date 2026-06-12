@@ -1,4 +1,6 @@
 <?php
+// Inclui arquivo que gera a conexão
+require_once "../conexao.php";
 
 // Inicia ou recupera a sessão do usuário
 session_start();
@@ -17,13 +19,8 @@ require('../biblioteca/fpdf186/fpdf.php');
 // Usuário logado (email)
 $user = $_SESSION['status'];
 
-// Conexão com banco de dados
-$con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
-
-// Verifica erro de conexão
-if (mysqli_connect_errno()) {
-    die("Falhou devido a conexao com Mysql: " . mysqli_connect_error());
-}
+// Conexão com banco de dados pela função
+$con = cria_conexao();
 
 // Consulta de multas do usuário logado
 $sql_retirados = "SELECT 
@@ -45,11 +42,6 @@ $sql_retirados = "SELECT
 
 // Executa consulta
 $resultado_sql = mysqli_query($con, $sql_retirados);
-
-// Verifica erro na execução da query
-if (!$resultado_sql) {
-    die(mysqli_error($con));
-}
 
 // Conta registros retornados
 $num_linhas = mysqli_num_rows($resultado_sql);
@@ -121,9 +113,6 @@ if ($num_linhas > 0) {
 
         $pdf->Ln();
     }
-
-    // Fecha conexão com banco
-    mysqli_close($con);
 
     // Nome do arquivo gerado
     $nome_arquivo = "multas_$data.pdf";

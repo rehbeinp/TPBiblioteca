@@ -1,4 +1,6 @@
 <?php
+// Inclui arquivo que gera a conexão
+require_once "../conexao.php";
 
 // Inclui o cabeçalho padrão do usuário (menu, layout, etc.)
 include "head_usuario.php";
@@ -25,13 +27,8 @@ if(isset($_SESSION['status']) and $_SESSION['status']!= "" ){
     // Recupera o usuário logado
     $user = $_SESSION['status'];
 
-    // Conexão com banco de dados
-    $con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
-
-    // Verifica erro de conexão
-    if (mysqli_connect_errno()) {
-        echo "Falhou devido a conexao com Mysql:" . mysqli_connect_error();
-    }
+    // Conexão com banco de dados pela função
+    $con = cria_conexao();
 
     // Consulta histórico completo de empréstimos do usuário
     $sql_retirados = "SELECT 

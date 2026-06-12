@@ -1,17 +1,14 @@
 <?php
+// Inclui arquivo que gera a conexão
+require_once "../conexao.php";
 
 /**
  * Calcula multas de usuários com base em atrasos
  */
 function calcula_multa($usuario){
 
-    // Conexão com banco de dados
-    $con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
-
-    // Verifica erro de conexão
-    if (mysqli_connect_errno()) {
-        echo "Falhou devido a conexao com Mysql:" . mysqli_connect_error();
-    }
+    // Conexão com banco de dados pela função
+    $con = cria_conexao();
 
     /**
      * Consulta:
@@ -55,12 +52,8 @@ function atualiza_multa($multas){
     // Só executa se houver dados
     if($multas != null){
 
-        // Conexão com banco
-        $con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
-
-        if (mysqli_connect_errno()) {
-            echo "Falhou devido a conexao com Mysql:" . mysqli_connect_error();
-        }
+        // Conexão com banco pela função
+        $con = cria_conexao();
 
         // Percorre todas as multas calculadas
         while ($resul = mysqli_fetch_assoc($multas)){
@@ -158,13 +151,8 @@ function mensagem_pesquisa($objeto,$pesquisa, $num_linhas){
  */
 function atualizar_dado($sql){
 
-    // Conexão com banco
-    $con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
-
-    // Verifica erro
-    if (mysqli_connect_errno()) {
-        echo "Falhou devido a conexao com Mysql:" . mysqli_connect_error();
-    }
+    // Conexão com banco pela função
+    $con = cria_conexao();
 
     // Executa query
     mysqli_query($con, $sql);

@@ -1,4 +1,6 @@
 <?php
+// Inclui arquivo que gera a conexão
+require_once "../conexao.php";
 
 // Inclui o cabeçalho da área do usuário (layout, menu, etc.)
 include "head_usuario.php";
@@ -38,14 +40,9 @@ function todoAcervo(){
     from livros l 
     order by l.titulo";
 
-    // Conexão com o banco de dados
-    $con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
-
-    // Verifica erro de conexão
-    if (mysqli_connect_errno()) {
-        echo "Falhou devido a conexao com Mysql:" . mysqli_connect_error();
-    }
-
+    // Conexão com o banco de dados pela função
+    $con = cria_conexao();
+    
     // Executa a consulta SQL
     $exesql_resultado = mysqli_query($con, $sql_todo_acervo);
     

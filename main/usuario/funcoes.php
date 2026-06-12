@@ -1,6 +1,6 @@
 <?php
 // Inclui arquivo que gera a conexão
-require_once "../conexao.php";
+include "../conexao.php";
 
 /**
  * Calcula multas de usuários com base em atrasos

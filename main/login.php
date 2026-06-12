@@ -18,7 +18,7 @@
     <input type="password" name="senha" required> <br>
 
     <!-- Seleção do tipo de usuário -->
-    <input type="radio" name="tipoUsusario" value="admin" /> Administrador
+    <input type="radio" name="tipoUsusario" value="admin" required/> Administrador
     <input type="radio" name="tipoUsusario" value="usuario" /> Usuário Padrão <br>
 
     <!-- Botão para enviar o formulário -->
@@ -33,6 +33,10 @@ session_start();
 
 // Importa funções auxiliares utilizadas pelo sistema
 require_once "usuario/funcoes.php";
+require_once "conexao.php";
+
+global $senha_banco;
+global $porta_banco;
 
 // Verifica se o botão de login foi pressionado
 if (isset($_POST["btn_login"])) {
@@ -46,12 +50,8 @@ if (isset($_POST["btn_login"])) {
     // Recebe o tipo de usuário selecionado
     $tipoUsuario = $_POST["tipoUsusario"];
 
-<<<<<<< HEAD
-    $con = mysqli_connect("127.0.0.1:3307", "root", "2004", "biblioteca", "3307");
-=======
     // Realiza a conexão com o banco de dados
-    $con = mysqli_connect("localhost", "root", "123456", "biblioteca", "3306");
->>>>>>> a85c5caab637b64c837b8c32fdd061ec61ac59b8
+    $con = mysqli_connect("localhost", "root", $senha_banco, "biblioteca", $porta_banco);
 
     // Verifica se houve erro na conexão
     if (mysqli_connect_errno()) {
@@ -88,23 +88,16 @@ if (isset($_POST["btn_login"])) {
         
         // Verifica se o usuário ainda está utilizando a senha padrão
         if($SENHA == hash('sha256',"1234")) {
-
-<<<<<<< HEAD
-        if ($tipoUsuario == "admin") {
-            header("location: adimin/menu_admin.php");
-        } else {
-=======
-            // Redireciona para a página de alteração de senha
-            header("location: usuario/primeiro_login.php");
+        // Redireciona para a página de alteração de senha
+        header("location: usuario/primeiro_login.php");
 
         }
         // Se for administrador, redireciona para o menu de administrador
         elseif ($tipoUsuario == "admin") {
-            header("location: menu_adim.php");
+            header("location: adimin/menu_admin.php");
         } 
         // Caso contrário, redireciona para o menu do usuário comum
         else {
->>>>>>> a85c5caab637b64c837b8c32fdd061ec61ac59b8
             header("location: usuario/menu_usuario.php");
         }
 

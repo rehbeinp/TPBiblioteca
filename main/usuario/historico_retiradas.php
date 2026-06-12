@@ -1,12 +1,12 @@
 <?php
 // Inclui arquivo que gera a conexão
-require_once "../conexao.php";
+include "../conexao.php";
 
 // Inclui o cabeçalho padrão do usuário (menu, layout, etc.)
 include "head_usuario.php";
 
 // Importa funções auxiliares (pesquisa, ordenação, mensagens)
-require_once "funcoes.php";
+include "funcoes.php";
 
 // Inicia ou recupera a sessão
 session_start();

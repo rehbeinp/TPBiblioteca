@@ -1,6 +1,6 @@
 <?php
 // Inclui arquivo que gera a conexão
-require_once "../conexao.php";
+include "../conexao.php";
 
 // Inicia ou recupera a sessão do usuário
 session_start();

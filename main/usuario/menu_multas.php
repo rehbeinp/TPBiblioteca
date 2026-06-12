@@ -1,6 +1,6 @@
 <?php
 // Inclui arquivo que gera a conexão
-require_once "../conexao.php";
+include "../conexao.php";
 
 // Inclui o cabeçalho padrão do usuário (layout/menu)
 include "head_usuario.php";

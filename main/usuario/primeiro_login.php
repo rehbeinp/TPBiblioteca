@@ -1,7 +1,7 @@
 <?php
 
 // Importa funções auxiliares (ex: atualização no banco)
-require_once "funcoes.php";
+include "funcoes.php";
 
 // Inicia ou recupera sessão
 session_start();
